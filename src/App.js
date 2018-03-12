@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts'
 
-const contacts = [
+
+
+class App extends Component {
+  state = {
+    contacts: [
   {
     "id": "ryan",
     "name": "Ryan Florence",
@@ -21,12 +25,16 @@ const contacts = [
     "avatarURL": "http://localhost:5001/tyler.jpg"
   }
 ]
-
-class App extends Component {
+  }
+  removeContact = (contact) => {
+    this.setState((state) => ({
+      contacts: state.contacts.filter((c) => c.id !== contact.id)
+    }))
+  }
   render() {
     return (
       <div>
-        <ListContacts contacts={contacts}/>
+        <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts}/>
       </div>
     )
   }
